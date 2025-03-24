@@ -69,7 +69,6 @@ function RegisterForm() {
                         placeholder="Wiek"
                         value={age}
                         onChange={(e) => setAge(e.target.value)}
-                        required
                     />
                     <input
                         type="text"
@@ -77,7 +76,6 @@ function RegisterForm() {
                         placeholder="Miasto"
                         value={city}
                         onChange={(e) => setCity(e.target.value)}
-                        required
                     />
                     <textarea
                         className="form-control mb-3"

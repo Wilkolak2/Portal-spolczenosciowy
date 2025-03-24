@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 
 function Profile() {
-    const [user, setUser] = useState(null);
+    const [user, setUser] = useState({}); // Domyślnie pusty obiekt zamiast null
 
     useEffect(() => {
         // Pobieramy dane zalogowanego użytkownika z localStorage
@@ -13,17 +13,6 @@ function Profile() {
         }
     }, []);
 
-    // Jeśli użytkownik nie jest zalogowany, wyświetlamy komunikat
-    if (!user) {
-        return (
-            <div className="container mt-5">
-                <div className="alert alert-danger" role="alert">
-                    Musisz się zalogować, aby zobaczyć swój profil.
-                </div>
-            </div>
-        );
-    }
-
     return (
         <div className="container mt-4">
             <div className="card p-4 text-center shadow">
@@ -34,11 +23,10 @@ function Profile() {
                 <div className="card p-4 shadow">
                     <div className="container d-flex flex-row">
                         <div className="col-8">
-                            <h3>{user.username}</h3>
-                            <p>Imię: {user.username}</p>
-                            <p>Wiek: {user.age}</p>
-                            <p>Miasto: {user.city}</p>
-                            <p>Opis: {user.description}</p>
+                            <p>Nazwa użytkownika: {user.username}</p>
+                            <p>Wiek: {user.age || "Nie podano"}</p>
+                            <p>Miasto: {user.city || "Nie podano"}</p>
+                            <p>Opis: {user.description || "Brak opisu"}</p>
                             <p>Użytkownik portalu od: {new Date().toLocaleDateString()}</p>
                         </div>
                         <div className="col-4">
