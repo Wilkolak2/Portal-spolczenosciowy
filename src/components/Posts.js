@@ -1,4 +1,4 @@
-let Posts = {
+const Posts = {
     1: {
         "title": "Post",
         "description": "Design and development",
@@ -11,7 +11,7 @@ let Posts = {
         "author": "John Doe",
         "likes": 0,
     },
-
+    
 }
 
 export default Posts;

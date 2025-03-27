@@ -1,6 +1,6 @@
 import {useEffect, useState} from "react";
 import { useNavigate } from "react-router-dom";
-import Posts from "./Posts.js";
+import Posts from "./Posts.json";
 
 function AddPostForm() {
     const [title, setTitle] = useState("");
@@ -20,9 +20,23 @@ function AddPostForm() {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        //Posts[Posts.valueOf()._getChildren().value] =
-        //navigate("/")
-    }
+
+        const newId = Object.keys(posts).length + 1;
+        const newPost = {
+            id: newId,
+            title: title,
+            description: content,
+            author: user.username,
+            likes: 0,
+        };
+
+        const updatedPosts = { ...posts, [newId]: newPost };
+        setPosts(updatedPosts);
+        posts[newId] = newPost;
+        localStorage.setItem("posts", JSON.stringify(updatedPosts));
+
+        navigate("/");
+    };
 
     return (
         <div className="container mt-5">
