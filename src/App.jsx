@@ -5,7 +5,6 @@ import Navigation from "./components/Navigation.jsx";
 import LoginForm from "./components/LoginForm.jsx";
 import RegisterForm from "./components/RegisterForm.jsx";
 import { useState, useEffect } from "react";
-import AddPostForm from "./components/AddPostForm.jsx";
 
 function App() {
     const [user, setUser] = useState(null);
@@ -46,7 +45,6 @@ function App() {
                     ) : (
                         <Route path="/login" element={<Home />} /> // Przekierowanie do strony głównej
                     )}
-                    <Route path="/post" element={<AddPostForm />} />
                 </Routes>
             </div>
         </>

@@ -1,6 +1,5 @@
-import {useEffect, useState} from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import Posts from "./Posts.json";
 
 function AddPostForm() {
     const [title, setTitle] = useState("");
@@ -8,11 +7,9 @@ function AddPostForm() {
     const navigate = useNavigate();
 
     const [user, setUser] = useState({});
-    const [posts, setPosts] = useState(Posts);
 
     useEffect(() => {
         const loggedInUser = JSON.parse(localStorage.getItem("user"));
-
         if (loggedInUser) {
             setUser(loggedInUser);
         }
@@ -21,21 +18,16 @@ function AddPostForm() {
     const handleSubmit = (e) => {
         e.preventDefault();
 
-        const newId = Object.keys(posts).length + 1;
         const newPost = {
             id: newId,
             title: title,
             description: content,
-            author: user.username,
             likes: 0,
         };
 
-        const updatedPosts = { ...posts, [newId]: newPost };
         setPosts(updatedPosts);
-        posts[newId] = newPost;
         localStorage.setItem("posts", JSON.stringify(updatedPosts));
 
-        navigate("/");
     };
 
     return (
@@ -58,7 +50,6 @@ function AddPostForm() {
                         onChange={(e) => setContent(e.target.value)}
                         rows="4"
                     />
-                    <button type="submit" className="btn w-100" style={{ backgroundColor: "rgb(33, 37, 41)", color: "white" }}>
                         Wyślij
                     </button>
                 </form>
