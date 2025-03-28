@@ -2,7 +2,7 @@ import { NavLink, useNavigate } from "react-router-dom";
 import '../App.css'
 
 function Navigation({ user, onLogout }) {
-    const navigate = useNavigate(); // Inicjujemy funkcję navigate do przekierowania
+    const navigate = useNavigate(); // Inicjalizujemy funkcję navigate do przekierowania
 
     const handleLogout = () => {
         // Wylogowanie użytkownika
@@ -21,43 +21,39 @@ function Navigation({ user, onLogout }) {
             <div className="collapse navbar-collapse">
                 <ul className="navbar-nav ms-auto">
                     <li className="nav-item">
-                        <NavLink
-                            className="nav-link"
-                            to="/"
-                            end
-                        >
+                        <NavLink className="nav-link" to="/" end>
                             Strona główna
                         </NavLink>
                     </li>
+                    {user && (
+                        <li className="nav-item">
+                            <NavLink className="nav-link" to="/post">
+                                Utwórz post
+                            </NavLink>
+                        </li>
+                    )}
                     {user ? (
                         <>
                             <li className="nav-item">
-                                <NavLink
-                                    className="nav-link"
-                                    to="/profile"
-                                >
+                                <NavLink className="nav-link" to="/profile">
                                     Profil
                                 </NavLink>
                             </li>
                             <li className="nav-item">
-                                <button className="nav-link btn" onClick={handleLogout}>Wyloguj się</button>
+                                <button className="nav-link btn" onClick={handleLogout}>
+                                    Wyloguj się
+                                </button>
                             </li>
                         </>
                     ) : (
                         <>
                             <li className="nav-item">
-                                <NavLink
-                                    className="nav-link"
-                                    to="/login"
-                                >
+                                <NavLink className="nav-link" to="/login">
                                     Zaloguj się
                                 </NavLink>
                             </li>
                             <li className="nav-item">
-                                <NavLink
-                                    className="nav-link"
-                                    to="/register"
-                                >
+                                <NavLink className="nav-link" to="/register">
                                     Zarejestruj się
                                 </NavLink>
                             </li>

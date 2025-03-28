@@ -1,33 +1,28 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-function AddPostForm() {
+function AddPostForm({ user }) {
     const [title, setTitle] = useState("");
     const [content, setContent] = useState("");
     const navigate = useNavigate();
-
-    const [user, setUser] = useState({});
-
-    useEffect(() => {
-        const loggedInUser = JSON.parse(localStorage.getItem("user"));
-        if (loggedInUser) {
-            setUser(loggedInUser);
-        }
-    }, []);
 
     const handleSubmit = (e) => {
         e.preventDefault();
 
         const newPost = {
-            id: newId,
-            title: title,
+            id: Date.now(), // Możesz użyć daty jako ID
+            title,
             description: content,
+            author: user.username,
             likes: 0,
         };
 
-        setPosts(updatedPosts);
-        localStorage.setItem("posts", JSON.stringify(updatedPosts));
+        const savedPosts = JSON.parse(localStorage.getItem("posts")) || [];
+        savedPosts.push(newPost);
+        localStorage.setItem("posts", JSON.stringify(savedPosts));
 
+        // Po dodaniu posta przekierowujemy na stronę główną
+        navigate("/");
     };
 
     return (
@@ -50,6 +45,7 @@ function AddPostForm() {
                         onChange={(e) => setContent(e.target.value)}
                         rows="4"
                     />
+                    <button type="submit" className="btn w-100" style={{ backgroundColor: "rgb(33, 37, 41)", color: "white" }}>
                         Wyślij
                     </button>
                 </form>

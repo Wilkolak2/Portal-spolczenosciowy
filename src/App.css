@@ -1,5 +1,4 @@
-/* Podkreślenie aktywnego linku */
+/* Aktywny link */
 .nav-link.active {
   text-decoration: underline;
-  font-weight: bold;
 }

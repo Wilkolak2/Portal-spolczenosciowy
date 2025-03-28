@@ -4,6 +4,7 @@ import Profile from "./components/Profile.jsx";
 import Navigation from "./components/Navigation.jsx";
 import LoginForm from "./components/LoginForm.jsx";
 import RegisterForm from "./components/RegisterForm.jsx";
+import AddPostForm from "./components/AddPostForm.jsx"; // Import formularza dodawania postu
 import { useState, useEffect } from "react";
 
 function App() {
@@ -36,6 +37,7 @@ function App() {
                 <Routes>
                     <Route path="/" element={<Home />} />
                     <Route path="/profile" element={<Profile user={user} />} />
+
                     {/* Jeśli użytkownik nie jest zalogowany, pokaż formularz logowania */}
                     {!user ? (
                         <>
@@ -45,6 +47,9 @@ function App() {
                     ) : (
                         <Route path="/login" element={<Home />} /> // Przekierowanie do strony głównej
                     )}
+
+                    {/* Formularz dodawania postu dostępny tylko dla zalogowanych użytkowników */}
+                    {user && <Route path="/post" element={<AddPostForm user={user} />} />}
                 </Routes>
             </div>
         </>
