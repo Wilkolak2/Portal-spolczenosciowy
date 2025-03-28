@@ -1,41 +1,49 @@
 import React, { useState, useEffect } from "react";
 
+
 const Post = () => {
     const [posts, setPosts] = useState(() => {
-        // Pobieramy zapisane posty z localStorage lub zwracamy pustą tablicę, jeśli nic nie ma
         const savedPosts = localStorage.getItem("posts");
         return savedPosts ? JSON.parse(savedPosts) : [];
     });
 
-    // Używamy useEffect, aby zapisać posty do localStorage za każdym razem, gdy posts się zmieniają
+    const [likedPosts, setLikedPosts] = useState(() => {
+        const savedLikedPosts = localStorage.getItem("likedPosts");
+        return savedLikedPosts ? JSON.parse(savedLikedPosts) : [];
+    });
+
+    const [user, setUser] = useState(null);
+
+    useEffect(() => {
+        const loggedInUser = JSON.parse(localStorage.getItem("user"));
+        if (loggedInUser) {
+            setUser(loggedInUser);
+        }
+    }, []);
+
     useEffect(() => {
         if (posts.length > 0) {
-            localStorage.setItem("posts", JSON.stringify(posts)); // Zapisujemy zaktualizowane posty
+            localStorage.setItem("posts", JSON.stringify(posts));
         }
-    }, [posts]); // Reagujemy na zmiany w postach
+        localStorage.setItem("likedPosts", JSON.stringify(likedPosts));
+    }, [posts, likedPosts]);
 
-    // Funkcja do obsługi kliknięcia przycisku "Lubię to!"
     const handleLike = (id) => {
-        // Zwiększamy liczbę polubień dla wybranego postu
-        const updatedPosts = posts.map((post) => {
-            if (post.id === id) {
-                return { ...post, likes: post.likes + 1 }; // Zwiększamy polubienia o 1
-            }
-            return post;
-        });
+        const updatedPosts = posts.map((post) =>
+            post.id === id && post.author !== user.username && !likedPosts.includes(post.id)
+                ? { ...post, likes: post.likes + 1 }
+                : post
+        );
 
-        // Zaktualizowane posty
-        setPosts(updatedPosts); // Ustawiamy stan zaktualizowanych postów
-
-        // Zapisujemy zaktualizowane posty w localStorage
-        localStorage.setItem("posts", JSON.stringify(updatedPosts));
+        setPosts(updatedPosts);
+        setLikedPosts([...likedPosts, id]);
     };
 
     return (
         <div className="row">
             {posts.length > 0 ? (
                 posts
-                    .sort((a, b) => b.id - a.id) // Sortowanie postów malejąco po id
+                    .sort((a, b) => b.id - a.id)
                     .map((post) => (
                         <div key={post.id} className="col-4 mb-4">
                             <div className="card shadow">

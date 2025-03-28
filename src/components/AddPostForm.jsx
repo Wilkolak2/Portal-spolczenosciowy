@@ -10,8 +10,8 @@ function AddPostForm({ user }) {
         e.preventDefault();
 
         const newPost = {
-            id: Date.now(), // Możesz użyć daty jako ID
-            title,
+            id: Date.now(),
+            title: title,
             description: content,
             author: user.username,
             likes: 0,
@@ -21,7 +21,6 @@ function AddPostForm({ user }) {
         savedPosts.push(newPost);
         localStorage.setItem("posts", JSON.stringify(savedPosts));
 
-        // Po dodaniu posta przekierowujemy na stronę główną
         navigate("/");
     };
 

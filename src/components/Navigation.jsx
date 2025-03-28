@@ -2,16 +2,13 @@ import { NavLink, useNavigate } from "react-router-dom";
 import '../App.css'
 
 function Navigation({ user, onLogout }) {
-    const navigate = useNavigate(); // Inicjalizujemy funkcję navigate do przekierowania
+    const navigate = useNavigate();
 
     const handleLogout = () => {
-        // Wylogowanie użytkownika
-        localStorage.removeItem("user"); // Usuwamy dane użytkownika z localStorage
+        localStorage.removeItem("user");
 
-        // Wywołanie funkcji onLogout, która może np. zaktualizować stan w rodzicu
         onLogout();
 
-        // Przekierowanie użytkownika na stronę główną po wylogowaniu
         navigate("/");
     };
 

@@ -2,32 +2,32 @@ import { useEffect, useState } from "react";
 
 function Home() {
     const [posts, setPosts] = useState([]);
-    const [user, setUser] = useState(null); // Przechowujemy dane o użytkowniku
+    const [user, setUser] = useState(null);
 
     useEffect(() => {
         const savedPosts = JSON.parse(localStorage.getItem("posts")) || {};
-        setPosts(Object.values(savedPosts)); // Konwersja obiektu na tablicę
+        setPosts(Object.values(savedPosts));
 
         const loggedInUser = JSON.parse(localStorage.getItem("user"));
-        setUser(loggedInUser); // Ustawiamy użytkownika, jeśli jest zalogowany
+        setUser(loggedInUser);
     }, []);
 
-    // Funkcja do obsługi kliknięcia przycisku "Lubię to!"
+
     const handleLike = (id) => {
         if (!user) {
             alert("Aby polubić post, musisz być zalogowany!");
-            return; // Jeśli użytkownik nie jest zalogowany, nie pozwalamy na polubienie
+            return;
         }
 
         const updatedPosts = posts.map((post) => {
             if (post.id === id) {
-                return { ...post, likes: post.likes + 1 }; // Zwiększamy liczbę polubień
+                return { ...post, likes: post.likes + 1 };
             }
             return post;
         });
 
         setPosts(updatedPosts);
-        localStorage.setItem("posts", JSON.stringify(updatedPosts)); // Zapisujemy do localStorage
+        localStorage.setItem("posts", JSON.stringify(updatedPosts));
     };
 
     return (
@@ -56,7 +56,7 @@ function Home() {
                                         <button
                                             className="btn btn-primary"
                                             onClick={() => handleLike(post.id)}
-                                            disabled={!user} // Jeśli nie ma zalogowanego użytkownika, przycisk jest wyłączony
+                                            disabled={!user}
                                         >
                                             Lubię to! <span className="badge text-bg-light">{post.likes}</span>
                                         </button>

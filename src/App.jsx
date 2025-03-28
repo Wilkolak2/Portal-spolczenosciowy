@@ -28,6 +28,7 @@ function App() {
     const handleLogout = () => {
         setUser(null); // Usuwamy stan użytkownika
         localStorage.removeItem("user"); // Usuwamy dane z localStorage
+        window.location.reload();
     };
 
     return (
@@ -38,17 +39,15 @@ function App() {
                     <Route path="/" element={<Home />} />
                     <Route path="/profile" element={<Profile user={user} />} />
 
-                    {/* Jeśli użytkownik nie jest zalogowany, pokaż formularz logowania */}
                     {!user ? (
                         <>
                             <Route path="/login" element={<LoginForm onLogin={handleLogin} />} />
                             <Route path="/register" element={<RegisterForm />} />
                         </>
                     ) : (
-                        <Route path="/login" element={<Home />} /> // Przekierowanie do strony głównej
+                        <Route path="/login" element={<Home />} />
                     )}
 
-                    {/* Formularz dodawania postu dostępny tylko dla zalogowanych użytkowników */}
                     {user && <Route path="/post" element={<AddPostForm user={user} />} />}
                 </Routes>
             </div>
